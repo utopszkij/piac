@@ -17,9 +17,12 @@
                 <tr v-for="item in items">
                     <td v-if="item.id > 0">#{{ item.id }}</td>
                     <td>
-						<a v-if="(item.id > 0)" v-bind:href="HREF('subproduct.editsubproduct',{id:item.id})">
+						<a v-if="((item.id > 0) & (loged > 0))" v-bind:href="HREF('subproduct.editsubproduct',{id:item.id})">
                         {{ item.name }}
                         </a>
+						<var v-if="((item.id > 0) & (loged <= 0))">
+                           {{ item.name }}
+                        </var>
                         <span v-if="(item.id == 0)">{{ item.name }}</span>
                     </td>
                     <td v-if="item.id > 0">{{ item.quantity }}</td>
@@ -33,13 +36,16 @@
         <div class="col-12">
             include paginator
         </div>    
-        <div class="col-12">
+        <div class="col-12" v-if="loged > 0">
             <a v-bind:href="HREF('subproduct.newsubproduct')" class="btn btn-primary">
                 <em class="fas fa-plus-circle"></em>&nbsp;{{ lng('ADD') }}
             </a>&nbsp;
             <a v-bind:href="HREF('product.products',{id:items[0].product_id})" class="btn btn-secondary">
                 <em class="fas fa-reply"></em>&nbsp;{{ lng('CANCEL') }}
             </a>&nbsp;
+        </div>    
+        <div class="col-12 alert alert-warning" v-if="loged <= 0">
+            Új felviteléhez, modosításhoz be kell jelentkezni!
         </div>    
     </div>
 </div>

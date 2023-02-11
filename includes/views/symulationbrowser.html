@@ -40,10 +40,13 @@
         <div class="col-12">
             include paginator
         </div>    
-        <div class="col-12">
+        <div class="col-12" v-if="loged > 0">
             <a v-bind:href="HREF('symulation.newsymulation')" class="btn btn-primary">
                 <em class="fas fa-plus-circle"></em>&nbsp;{{ lng('ADD') }}
             </a>
+        </div>    
+        <div class="col-12 alert alert-warning" v-if="loged <= 0">
+            Új szimuláció indításához be kell jelentkezni!
         </div>    
     </div>
 </div>

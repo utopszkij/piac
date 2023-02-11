@@ -16,6 +16,16 @@ Piaci folyamat szimuláció.
 - SEO url támogatása,
 - egszerű telepíthetőség, nem szükséges konzol hozzáférés,
 
+
+
+## Célkitűzés
+	Általában apriori, axiomatikus tételként tekintünk arra az
+	állításra, hogy a piaci folyamatok (ideális esetben) a
+	kereslet/kínálat egyensúlyához és az optimális erőforrás
+	allokációhoz vezetnek. Arra gondoltam ennek az állításnak a
+	bizonyítására, szemléltetésére vagy esetleg cáfolatára
+	készítenék egy szimulációs programot. 
+
 Müködés leírást lásd: [http://piac.infora.hu](http://piac.infora.hu)
 
 ### A programot mindenki csak saját felelősségére használhatja.
