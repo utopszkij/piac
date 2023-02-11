@@ -1,0 +1,73 @@
+
+<div v-if="errorMsg != ''" class="alert alert-danger">
+    <div v-html="lng(errorMsg)"></div>
+</div>
+
+<div id="subgroup">
+    <form id="subgroupForm" action="index.php" method="post" 
+        enctype="multipart/form-data">
+        <input type="hidden" value="subproduct.savesubproduct" name="task" />			
+        <input type="hidden" v-model="record.id" name="id" />
+        <input type="hidden" v-model="record.product_id" name="product_id" />
+        <input type="hidden" v-model="flowKey" name="flowKey" />
+        <div class="row text-center">
+            <h2>{{ record.parent_name }}</h2>
+            <h3>{{ lng('SUBPRODUCT') }}</h3>
+            <h3 v-if="logedAdmin & (record.id == 0)">{{ lng('ADD')}}</h3>
+            <h3 v-if="logedAdmin & (record.id > 0)">{{ lng('EDIT')}}</h3>
+        </div>
+        <div class="row">
+            <div class="form-outline col-12">
+                <label>{{ lng('NAME') }}:&nbsp;</label>
+                <select name="subproduct_id" id="subproduct_id" class="form-control" 
+                        v-model="record.subproduct_id" 
+                        v-on:change="selectChange()"
+                        required="true">
+                    <option v-for="p in record.products" 
+                        v-bind:value="p.id">{{ p.name }}</option>    
+                </select>        
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-outline col-12">
+                <label>{{ lng('QUANTITY') }}:&nbsp;</label>
+                <input name="quantity" class="form-control" type="number" step="0.000001"
+                        v-model="record.quantity" required="true" />
+                <var id="unit">{{ record.unit }}</var> / {{ record.parent_unit }}        
+            </div>
+        </div>
+        
+        <div class="row formBUttons">
+            <div class="col-12">
+                <button type="submit" class="btn btn-success">
+                    <em class="fas fa-check"></em>&nbsp;{{ lng('SAVE') }}
+                </button>&nbsp;
+                <a v-bind:href="HREF('subproduct.subproducts',{id:record.product_id})" class="btn btn-secondary">
+                    <em class="fas fa-reply"></em>&nbsp;{{ lng('CANCEL') }}
+                </a>&nbsp;
+                <button type="button" 
+                   v-on:click="delClick()"
+                   v-if="record.id > 0"
+                   class="btn btn-danger">
+                    <em class="fas fa-eraser"></em>&nbsp;{{ lng('DELETE') }}
+                </button>
+            </div>
+        </div>
+    </form>    
+</div>
+
+<script>
+    methods = {
+        delClick() {
+            popupConfirm(lng('SUREDELETE'), 
+            function() {
+                location=HREF('subproduct.deletesubgroup',{id:app.record.id}); 
+            })
+        },   
+        selectChange() {
+           var i = document.getElementById('subproduct_id').selectedIndex;
+           var unit = app.record.products[i].unit;
+           document.getElementById('unit').innerHTML = unit;
+        } 
+    }
+</script>

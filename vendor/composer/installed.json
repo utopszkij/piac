@@ -1,0 +1,48 @@
+{
+    "packages": [
+        {
+            "name": "yidas/socket-mailer",
+            "version": "1.0.0",
+            "version_normalized": "1.0.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/yidas/php-socket-mailer.git",
+                "reference": "a9258787969baeb8edc1c2ba0782a16074295710"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/yidas/php-socket-mailer/zipball/a9258787969baeb8edc1c2ba0782a16074295710",
+                "reference": "a9258787969baeb8edc1c2ba0782a16074295710",
+                "shasum": ""
+            },
+            "time": "2018-09-19T08:30:57+00:00",
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "yidas\\socketMailer\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "PHP SMTP Mailer library using fsockopen.",
+            "homepage": "https://github.com/yidas/php-socket-mailer",
+            "keywords": [
+                "Socket",
+                "fsockopen",
+                "mailer",
+                "php",
+                "smtp"
+            ],
+            "support": {
+                "issues": "https://github.com/yidas/php-socket-mailer/issues",
+                "source": "https://github.com/yidas/php-socket-mailer"
+            },
+            "install-path": "../yidas/socket-mailer"
+        }
+    ],
+    "dev": true,
+    "dev-package-names": []
+}

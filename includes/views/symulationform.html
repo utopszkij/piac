@@ -1,0 +1,113 @@
+
+<div v-if="errorMsg != ''" class="alert alert-danger">
+    <div v-html="lng(errorMsg)"></div>
+</div>
+
+<div id="symulation">
+    <form id="symulationForm" action="index.php" method="post" 
+        enctype="multipart/form-data">
+        <input type="hidden" value="symulation.startsymulation" name="task" />			
+        <input type="hidden" v-model="record.id" name="id" />
+        <input type="hidden" v-model="flowKey" name="flowKey" />
+        <div class="row text-center">
+            <h2>Szimuláció</h2>
+            <h3 v-if="record.id == 0">{{ lng('ADD')}}</h3>
+            <h3 v-if="record.id > 0">{{ lng('EDIT')}}</h3>
+        </div>
+        <div class="row">
+            <div class="form-outline col-12">
+                <label>{{ lng('ID') }}:&nbsp;</label>
+                {{ record.id }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-outline col-12">
+                <label>szimuláció rövid leírása</label>
+                <input name="name" class="form-control" v-model="record.name"
+                        type="text" size="80" required="true" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-outline col-12">
+                <label>órabér kezdő érték:&nbsp;</label>
+                <input name="workhourprice" class="form-control" 
+                        v-model="record.workhourprice" type="number" min="0" max="10000" step="1" required="true" />HUF
+                minimum:
+                <input name="minworkhourprice" class="form-control" 
+                        v-model="record.minworkhourprice" type="number" min="0" max="10000" step="1" required="true" />HUF
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-outline col-12">
+                <label>ár emelés ha kereslet > kinálat [>100]:&nbsp;</label>
+                <input name="priceup" class="form-control" 
+                        v-model="record.priceup" type="number" min="0" max="150" step="1" required="true" />%
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-outline col-12">
+                <label>ár csökkentés ha kereslet < kinálat [<100]:&nbsp;</label>
+                <input name="pricedown" class="form-control"  
+                        v-model="record.pricedown" type="number" min="0" max="100" step="1" required="true" />%
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-outline col-12">
+                <label>termelés bővítés ha a nyereséges [>100]:&nbsp;</label>
+                <input name="quantityup" class="form-control" 
+                        v-model="record.quantityup" type="number" min="0" max="150" step="1" required="true" />%
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-outline col-12">
+                <label>termelés csökkentés ha veszteséges [<100]:&nbsp;</label>
+                <input name="quantitydown" class="form-control" 
+                        v-model="record.quantitydown" type="number" min="0" max="100" step="1" required="true" />%
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-outline col-12">
+                <label>létszám:&nbsp;</label>
+                <input name="population" class="form-control" 
+                        v-model="record.population" type="number" min="0" max="10000000" step="1" required="true" />fő
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-outline col-12">
+                <label>munkaóra/nap:&nbsp;</label>
+                <input name="hourperday" class="form-control" 
+                        v-model="record.hourperday" type="number" min="1" max="8" step="1" required="true" />óra
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-outline col-12">
+                <label>szimuláció hossza [napok]:&nbsp;</label>
+                <input name="days" class="form-control" value="100"
+                        type="number" min="0" max="10000" step="1" required="true" />nap
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-outline col-12">
+                <label>algoritmus:&nbsp;</label>
+                <textarea name="algorithm" class="form-control" v-model="record.algorithm"
+                        rows="20" cols="80"></textarea>
+            </div>
+        </div>
+        
+        <div class="row formButtons">
+            <div class="col-12">
+                <button type="submit" class="btn btn-success">
+                    <em class="fas fa-check"></em>&nbsp;{{ lng('START') }}
+                </button>&nbsp;
+                <a v-bind:href="previous" class="btn btn-secondary">
+                    <em class="fas fa-reply"></em>&nbsp;{{ lng('CANCEL') }}
+                </a>&nbsp;
+            </div>
+        </div>
+    </form>    
+</div>
+
+<script>
+    methods = {
+    }
+</script>

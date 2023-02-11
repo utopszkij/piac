@@ -1,0 +1,63 @@
+<div id="symulations">
+    <div v-if="errorMsg != ''" class="alert alert-danger">
+        <div v-html="lng(errorMsg)"></div>
+    </div>
+    <div v-if="successMsg != ''" class="alert alert-success">
+        <div v-html="lng(successMsg)"></div>
+    </div>
+    
+    <div class="row">
+        <div class="col-12">
+            <h2>{{ lng('SYMULATIONS') }}</h2>
+        </div>
+        <div class="col-12">
+            <table id="symulationsTable" class="browserTable">
+                <tr>
+                    <th>ID</th>
+                    <th>Leírás</th>
+                    <th>ár emelés %</th>
+                    <th>ár csökkentés %</th>
+                    <th>termelés bővítés %</th>
+                    <th>termlés csökkentés %</th>
+                    <th>népesség</th>
+                </tr>
+                <tr v-for="item in items">
+                    <td><a v-bind:href="HREF('symulation.showsymulation',{id:item.id})">
+                        {{ item.id }}
+                    </a></td>
+                    <td>{{ item.name}}</td>
+                    <td>{{ item.priceup }}</td>
+                    <td>{{ item.pricedown }}</td>
+                    <td>{{ item.quantityup }}</td>
+                    <td>{{ item.quantitydown }}</td>
+                    <td>{{ item.population }}</td>
+                </tr>
+            </table>
+            <div class="alert alert-info" v-if="items.length == 0">
+                {{ lng('NODATA') }}
+            </div> 
+        </div>
+        <div class="col-12">
+            include paginator
+        </div>    
+        <div class="col-12">
+            <a v-bind:href="HREF('symulation.newsymulation')" class="btn btn-primary">
+                <em class="fas fa-plus-circle"></em>&nbsp;{{ lng('ADD') }}
+            </a>
+        </div>    
+    </div>
+</div>
+
+<script>
+    methods = {
+        makePaginatorClass(p,page) {
+            var result = '';
+            if (p == page) {
+                result="actPaginatorItem";
+            } else {
+                result="paginatorItem"
+            }
+            return result;
+        }
+    }
+</script>

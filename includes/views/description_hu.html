@@ -1,0 +1,71 @@
+<div id="description" dir="ltr"><h1 class="western">Piac szimuláció</h1>
+	<h2 class="western">Áttekintés</h2>
+	<h3 class="western"><img src="images/header.jpg" name="Kép1" align="left" hspace="10" vspace="10" width="40%" height="auto" border="0"/>
+Célkitűzés</h3>
+	<p>Általában apriori, axiomatikus tételként tekintünk arra az
+	állításra, hogy a piaci folyamatok (ideális esetben) a
+	kereslet/kínálat egyensúlyához és az optimális erőforrás
+	allokációhoz vezetnek. Arra gondoltam ennek az állításnak a
+	bizonyítására, szemléltetésére vagy esetleg cáfolatára
+	készítenék egy szimulációs programot. 
+	</p>
+	<h4 class="western">Egyszerűsített piaci modell</h4>
+	<ul>
+		<li><p style="margin-bottom: 0cm">társadalmi szinten egyenletes
+		órabérek 
+		</p>
+		<li><p style="margin-bottom: 0cm">a termelésnek nincsenek külső
+		fizikai korlátai (pl. korlátos természeti erőforrások) 
+		</p>
+		<li><p style="margin-bottom: 0cm">a termelés bővítésének,
+		átalakításának nincsenek pénzügyi korlátai (korlátlan hitel
+		forrás áll rendelkezésre, a termelés szűkítésnél
+		felszabaduló anyagi erőforrások járulékos költség nélkül
+		transzformálhatók más terület termelés bővítésére) 
+		</p>
+		<li><p style="margin-bottom: 0cm">a termelés beindítás,
+		átállítás, fejlesztés beruházási költségeivel, idő
+		szükségleteivel nem számolunk 
+		</p>
+		<li><p style="margin-bottom: 0cm">a munkaerő átképzés,
+		transzformáció költségeivel idő szükségletével nem
+		számolunk 
+		</p>
+		<li><p style="margin-bottom: 0cm">feltételezzük, hogy a
+		társadalom népesség csökkenés nélkül „túléli” a
+		fogyasztási cikkek időleges hiányát, illetve az olyan
+		helyzeteket amikor nincs meg a pénzügyi fedezete a népességnek
+		ezek beszerzésére. 
+		</p>
+		<li><p style="margin-bottom: 0cm">Minden nap azonos munkaóra
+		mennyiséggel számolunk (nincsenek ünnepnapok, hétvége) 
+		</p>
+		<li><p style="margin-bottom: 0cm">Teljes népesség aktív
+		dolgozókból áll 
+		</p>
+		<li><p>
+		Szükség esetén  társadalom a beállított napi munkaóra keretet tulépve korlátlan mennyiségű tulmunkára is képes.</p></li>
+
+		<li><p>A termelők reagálása a piaci körülményekre: <br/>
+- Ha egy terméknél a kereslet nagyobb mint a kínálat akkor árat emelnek és ez a munkabérre (a munkaerő árára) is
+		vonatkozik<br />
+- Ha egy terméknél a kereslet kissebb mint a kínálat akkor árat csökkentenek (ez a munkabérre is
+		vonatkozik) <br/>
+- Ha egy termék előállítása nyereséget hoz, akkor növelik ennek a termelését<br/>
+- Ha egy termék előállítása veszteséges akkor csökkentik ennek a termelését 
+		</p>
+	</ul>
+	<h3>Szimuláció kezdő értékei</h3>
+	<ul>
+		<li>Fogyasztási cikkek temelt mennyisége: termékenként a populáció létszámából adodó valós igény +- véletlenszerű 0 - 10%</li>
+		<li>Termelő eszközök termelt mennyisége a fogyasztási cikkek fenti mennyiségéhez szükséges mennyiség +- véletlenszerü 0 - 10%</li>
+		<li>Termékek ára a számolt önköltség +- véletlenszerü 0 - 10%</li>
+	</ul>
+	<h3>A szimuláció menete; naponként:</h3>
+	<ul>
+		<li>1. Termkenként az elöző napi kereslet / kinálat adatok alapján ár módosítás</li>
+		<li>2. Elöző napi munkaidő kereslet / munkaidő kinálat adatok alapján órbér modosítás (mivel a munkabér a munkaerő ára; ugyanaz az init-ben beállított arány vonatkozik rá mint a termékekre)</li>
+		<li>3. Termékenként az elöző napi profitráta számtása és 
+			ha ez nagyobb 100% -nál akkor termelés bővítés, ha kissebb 100% -nál akkor termelés szükítés</li>
+	</ul>
+</div>

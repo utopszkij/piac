@@ -1,0 +1,100 @@
+<div id="login" class="form">
+    <div class="alert alert-danger" v-if="errorMsg != ''" v-html="lng(errorMsg)"></div>
+    <div class="alert alert-success" v-if="successMsg != ''" v-html="lng(successMsg)"></div>
+    <div class="row text-center">
+        <h1>
+                <em class="fas fa-sign-in-alt"></em>&nbsp;
+                <span>{{ lng('LOGIN') }}</span>
+        </h1>
+	</div>	
+    <form name="login" action="index.php" method="post" 
+		id="formLogin">
+    <input type="hidden" name="task" value="user.dologin" />
+    <!-- input type="hidden" name="_redirect" v-model="redirect" / -->
+    <input type="hidden" name="redirect" v-bind:value="HREF('home.show',{})" />
+    <input type="hidden" name="key" v-model="key" />
+    <div class="row text-center">
+		<div class="col-12">
+			<em class="fas fa-user"></em>&nbsp;
+    	    <input type="text" name="username" id="username" v-model="username"
+        	    v-bind:placeholder="lng('NICKNAME')" required="true" />
+		</div>	
+	</div>	
+    <div class="row text-center">
+    	<div class="col-12">
+			<em class="fas fa-key"></em>&nbsp;
+        	<input type="password" name="password" 
+            	v-bind:placeholder="lng('PASSWORD')" required="true" />
+		</div>
+	</div>	
+    <div class="row text-center">
+    	<div class="col-12" v-html="lng('ACCEPT')"></div>
+
+    <div class="row text-center">
+    	<div class="col-12">
+    	    <button type="submit" class="btn btn-success" style="width:250px" name="submit">
+				<em class="fas fa-check"></em>&nbsp;{{ lng('OK') }}
+        	</button>   
+		</div>
+	</div>	
+    <div class="row text-center">
+    	<div class="col-12">
+			<a v-bind:href="'https://netpolgar.hu/auth/facebook?state='+SITEURL+'/'+atob(redirect)"
+				class="btn btn-primary" style="width:250px"> 
+				{{ lng('FBLOGIN') }}			
+			</a>&nbsp;
+			<a v-bind:href="'https://netpolgar.hu/auth/google?state='+SITEURL+'/'+atob(redirect)" 
+				class="btn btn-secondary" style="width:250px"> 
+				{{ lng('GOOGLELOGIN') }}			
+			</a>
+		</div>	
+	</div>	
+	</form>
+    <div class="alert alert-info">{{ lng('REGISTHELP2') }}</div>
+    <div class="row">
+		<div class="col-12 text-center">
+		   <a v-bind:href="HREF('user.regist',{'redirect':redirect})">
+				{{ lng('DOREGIST') }}
+		   </a>
+		</div>
+	 </div>
+	 <div class="row">
+		<div class="col-12 text-center">
+		   <var v-on:click="resendClick()" class="link">
+				{{ lng('RESEND_ACTIVATOR') }}
+		   </var>
+		</div>
+	 </div>
+	 <div class="row">
+		<div class="col-12 text-center">
+		   <var v-on:click="forgetPswClick()" class="link">
+				{{ lng('FORGET_PASSWORD') }}
+		   </var>
+		</div>
+	 </div>
+	  
+</div>
+
+<script>
+	methods = {
+		afterMount() {
+			this.username = '';
+			document.getElementById('username').focus();
+		},
+		atob(s) {
+			if ((s != '') & (s != undefined))  {
+			  return window.atob(s);
+			} else {
+			  return '';
+			}
+		},
+		resendClick() {
+			document.location=HREF('user.sendactivator',{username:this.username});
+			return false;
+		},
+		forgetPswClick() {
+			document.location=HREF('user.forgetpsw',{username:this.username});
+			return false;
+		}
+	};
+</script>	

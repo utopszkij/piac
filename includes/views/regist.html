@@ -1,0 +1,101 @@
+<div id="regist" class="form">
+    <div class="alert alert-danger" v-if="errorMsg != ''" v-html="lng(errorMsg)"></div>
+    <div class="alert alert-success" v-if="successMsg != ''" v-html="lng(successMsg)"></div>
+
+    <div class="row text-center">
+        <h1 class="ribbon-banner" style="display:inline-block">
+            <em class="fa fa-user-plus" aria-hidden="true"></em>&nbsp;
+            <span>{{ lng('REGISTRATION') }}</span>
+        </h1>
+	</div>	
+    <form name="registration" action="index.php" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="task" value="user.doregist" />
+    <input type="hidden" name="redirect" v-model="redirect" />
+    <input type="hidden" name="key" v-model="key" />
+	<div class="row text-center">
+		<div class="col-12">
+        <label><em class="fa fa-user"></em>{{ lng('USERNAME') }}&nbsp;
+		</label><input type="text" name="username" id="username" v-model="record.username"
+            v-bind:placeholder="lng('NICKNAME')" required="true" class="form-control" />
+        </div>
+	</div>	
+	<div class="row text-center">
+		<div class="col-12">
+        <label><em class="fa fa-key"></em>{{ lng('PASSWORD') }}&nbsp;</label>
+		<input type="password" name="password" 
+            v-bind:placeholder="lng('PASSWORD')" required="true" class="form-control password"/>
+		</div>	
+	</div>	
+	<div class="row text-center">
+		<div class="col-12">
+        <label></label>
+		<input type="password" name="password2" 
+		v-bind:placeholder="lng('PASSWORD_RETYPE')" required="true" class="form-control password"/>
+		</div>	
+	</div>	
+	<div class="row text-center">
+		<div class="col-12">
+        <label><em class="fas fa-id-badge"></em>{{ lng('REALNAME') }}&nbsp;</label>
+		<input type="text" name="realname"  v-model="record.realname"
+		v-bind:placeholder="lng('REALNAME')" required="true" class="form-control"/>
+		</div>	
+	</div>	
+	<div class="row text-center">
+		<div class="col-12">
+        <label><em class="fas fa-envelope"></em>{{ lng('EMAIL') }}&nbsp;</label>
+		<input type="text" name="email" v-model="record.email"
+		v-bind:placeholder="lng('EMAIL')" required="true" class="form-control"/>
+		</div>	
+	</div>	
+	<div class="row text-center">
+		<div class="col-12">{{ lng('AVATARFILE') }}</div>
+		<div class="col-12">
+        <label><em class="fas fa-camera"></em>&nbsp;</label>
+		<input type="file" name="avatar" 
+            class="form-control"/>
+		</div>	
+	</div>	
+	<div class="row">
+		<div class="col-1"><input type="checkbox" name="accept" value="1" /></div>
+		<strong class="col-11" v-html="lng(polocyAccept)"></strong>
+	</div>	
+	<div class="row text-center">
+		<div class="col-12">
+    	    <button type="submit" class="btn btn-primary" name="submit" style="width:250px">
+        	    <em class="fas fa-check"></em>&nbsp;{{ lng('OK') }}
+        	</button>    
+		</div>
+	</div>	
+    </form>
+    <div class="alert alert-warning">
+            <p><strong>{{ lng('REGISTHELP') }}</strong></p>
+    </div>
+    <div class="alert alert-info">{{ lng('REGISTHELP2') }}</div>
+	<div class="row text-center">
+		<div class="col-12">
+			<a v-bind:href="'https://netpolgar.hu/auth/facebook?state='+SITEURL+'/'+atob(redirect)"
+				class="btn btn-primary" style="width:250px"> 
+				{{ lng('FBLOGIN') }}			
+			</a>&nbsp;
+			<a v-bind:href="'https://netpolgar.hu/auth/google?state='+SITEURL+'/'+atob(redirect)" 
+				class="btn btn-secondary" style="width:250px"> 
+				{{ lng('GOOGLELOGIN') }}			
+			</a>
+		</div>
+    </div>
+</div>
+
+<script>
+	methods = {
+		atob(s) {
+			if ((s != '') & (s != undefined))  {
+			  return window.atob(s);
+			} else {
+			  return '';
+			}
+		},
+		afterMount() {
+			document.getElementById('username').focus();
+		}
+	};
+</script>	

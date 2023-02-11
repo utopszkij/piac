@@ -1,0 +1,96 @@
+
+<div v-if="errorMsg != ''" class="alert alert-danger">
+    <div v-html="lng(errorMsg)"></div>
+</div>
+
+<div id="product">
+    <form id="productForm" action="index.php" method="post" 
+        enctype="multipart/form-data">
+        <input type="hidden" value="product.saveproduct" name="task" />			
+        <input type="hidden" v-model="record.id" name="id" />
+        <input type="hidden" v-model="flowKey" name="flowKey" />
+        <div class="row text-center">
+            <h2>{{ lng('PRODUCTS') }}</h2>
+            <h3 v-if="record.id == 0">{{ lng('ADD')}}</h3>
+            <h3 v-if="record.id > 0">{{ lng('EDIT')}}</h3>
+        </div>
+        <div class="row">
+            <div class="form-outline col-12">
+                <label>{{ lng('ID') }}:&nbsp;</label>
+                {{ record.id }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-outline col-12">
+                <label>{{ lng('NAME') }}:&nbsp;</label>
+                <input name="name" class="form-control" 
+                        v-model="record.name" type="text" required="true" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-outline col-12">
+                <label>{{ lng('TYPE') }}:&nbsp;</label>
+                <select name="type" class="form-control" 
+                        v-model="record.type" required="true">
+                        <option value="fogy.cikk">Fogyasztási cikk</option>    
+                        <option value="termelő eszköz">Termelő eszköz</option>    
+                        <option value="alkatrész">Alkatrész</option>    
+                        <option value="alapanyag">Alapanyag</option>    
+                    </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-outline col-12">
+                <label>{{ lng('UNIT') }}:&nbsp;</label>
+                <input name="unit" class="form-control" 
+                        v-model="record.unit" type="text" required="true" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-outline col-12">
+                <label>{{ lng('WORKHOURS') }}:&nbsp;</label>
+                <input name="workHours" class="form-control" 
+                        v-model="record.workHours" type="float" required="true" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-outline col-12">
+                <label>{{ lng('REQUIRED') }}:&nbsp;</label>
+                <input name="required" class="form-control" v-if="record.type=='fogy.cikk'"
+                        v-model="record.required" type="float" required="true" />
+                <input name="required" class="form-control" v-if="record.type=='fogy.cikk'"
+                        v-model="record.required" type="hidden" required="true" />
+                        ---
+                        /fő/nap
+            </div>
+        </div>
+                
+        <div class="row formBUttons">
+            <div class="col-12">
+                <button type="submit" class="btn btn-success">
+                    <em class="fas fa-check"></em>&nbsp;{{ lng('SAVE') }}
+                </button>&nbsp;
+                <a v-bind:href="previous" class="btn btn-secondary">
+                    <em class="fas fa-reply"></em>&nbsp;{{ lng('CANCEL') }}
+                </a>&nbsp;
+                <button type="button" 
+                   v-on:click="delClick()"
+                   v-if="record.id > 0"
+                   class="btn btn-danger">
+                    <em class="fas fa-eraser"></em>&nbsp;{{ lng('DELETE') }}
+                </button>
+            </div>
+        </div>
+    </form>    
+</div>
+
+<script>
+    methods = {
+        delClick() {
+            popupConfirm(lng('SUREDELETE'), 
+            function() {
+                location=HREF('product.deleteproduct',{id:app.record.id}); 
+            })
+        }    
+    }
+</script>

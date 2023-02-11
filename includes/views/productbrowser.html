@@ -1,0 +1,58 @@
+<div id="groups">
+    <div v-if="errorMsg != ''" class="alert alert-danger">
+        <div v-html="lng(errorMsg)"></div>
+    </div>
+    <div v-if="successMsg != ''" class="alert alert-success">
+        <div v-html="lng(successMsg)"></div>
+    </div>
+    
+    <div class="row">
+        <div class="col-12">
+            <h2>{{ lng('PRODUCTS') }}</h2>
+        </div>
+        <div class="col-12">
+            <table id="productsTable" class="browserTable">
+                <tr v-for="item in items">
+                    <td>#{{ item.id }}</td>
+                    <td><a v-bind:href="HREF('product.editproduct',{id:item.id})">
+                        {{ item.name }}
+                    </a></td>
+                    <td>{{ item.type }}</td>
+                    <td><a v-bind:href="HREF('subproduct.subproducts',{id:item.id,page:1})">
+                        Összetevők</a></td>
+                    <td v-if="item.type=='fogy.cikk'">
+						Személyes szükséglet:{{ item.required }}
+                    </td>
+                    <td v-if="item.type !='fogy.cikk'">
+                            &nbsp;
+                    </td>
+                </tr>
+            </table>
+            <div class="alert alert-info" v-if="items.length == 0">
+                {{ lng('NODATA') }}
+            </div> 
+        </div>
+        <div class="col-12">
+            include paginator
+        </div>    
+        <div class="col-12">
+            <a v-bind:href="HREF('product.newproduct')" class="btn btn-primary">
+                <em class="fas fa-plus-circle"></em>&nbsp;{{ lng('ADD') }}
+            </a>
+        </div>    
+    </div>
+</div>
+
+<script>
+    methods = {
+        makePaginatorClass(p,page) {
+            var result = '';
+            if (p == page) {
+                result="actPaginatorItem";
+            } else {
+                result="paginatorItem"
+            }
+            return result;
+        }
+    }
+</script>

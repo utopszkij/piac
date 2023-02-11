@@ -1,0 +1,31 @@
+<div id="userek">
+    <div v-if="errorMsg != ''" class="alert alert-danger">
+        <div v-html="lng(errorMsg)"></div>
+    </div>
+    <div v-if="successMsg != ''" class="alert alert-success">
+        <div v-html="lng(successMsg)"></div>
+    </div>
+    
+    <h2 class="ribbon-banner"><span><em class="fa fa-users" aria-hidden="true"></em>&nbsp;{{ lng('USERS') }}</span></h2>
+    <ul>
+        <li v-for="record in items">
+            <a v-bind:href="HREF('user.profile',{id:record.id, backtask:'home.show'})">
+                {{ record.username }} </a>
+        </li>
+    </ul>
+    include paginator
+</div>
+
+<script>
+    methods = {
+        makePaginatorClass(p,page) {
+            var result = '';
+            if (p == page) {
+                result="actPaginatorItem";
+            } else {
+                result="paginatorItem"
+            }
+            return result;
+        }
+    }
+</script>

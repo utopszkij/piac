@@ -1,0 +1,51 @@
+<div id="group">
+    <div v-if="errorMsg != ''" class="alert alert-danger">
+        <div v-html="lng(errorMsg)"></div>
+    </div>
+    <div v-if="successMsg != ''" class="alert alert-success">
+        <div v-html="lng(successMsg)"></div>
+    </div>
+    
+    <div class="row">
+        <div class="col-12">
+            <h2>{{ lng('GROUPS') }}</h2>
+        </div>
+        <div class="col-12">
+            <ul>
+                <li v-for="item in items">
+                    <a v-bind:href="HREF('group.update',{id:item.id})">
+                        {{ item.name }}
+                    </a>
+                </li>
+            </ul>
+            <div class="alert alert-info" v-if="items.length == 0">
+                {{ lng('NODATA') }}
+            </div> 
+            <div class="alert alert-info" v-if="items.length > 0">
+                {{ lng('GROUP_BR_HELP') }}
+            </div> 
+        </div>
+        <div class="col-12">
+            include paginator
+        </div>    
+        <div class="col-12" v-if="logedAdmin">
+            <a v-bind:href="HREF('group.add')" class="btn btn-primary">
+                <em class="fas fa-plus-circle"></em>&nbsp;{{ lng('ADD') }}
+            </a>
+        </div>    
+    </div>
+</div>
+
+<script>
+    methods = {
+        makePaginatorClass(p,page) {
+            var result = '';
+            if (p == page) {
+                result="actPaginatorItem";
+            } else {
+                result="paginatorItem"
+            }
+            return result;
+        }
+    }
+</script>

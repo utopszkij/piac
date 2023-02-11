@@ -1,0 +1,59 @@
+
+<div v-if="errorMsg != ''" class="alert alert-danger">
+    <div v-html="lng(errorMsg)"></div>
+</div>
+
+<div id="group">
+    <form id="groupForm" action="index.php" method="post" 
+        enctype="multipart/form-data">
+        <input type="hidden" value="group.store" name="task" />			
+        <input type="hidden" v-model="record.id" name="id" />
+        <div class="row text-center">
+            <h2><em class="fas fa-address-card"></em>{{ lng('GROUP') }}</h2>
+            <h3 v-if="logedAdmin & (record.id == 0)">{{ lng('ADD')}}</h3>
+            <h3 v-if="logedAdmin & (record.id > 0)">{{ lng('EDIT')}}</h3>
+        </div>
+        <div class="row">
+            <div class="form-outline col-12">
+                <label>{{ lng('NAME') }}:&nbsp;</label>
+                <input name="name" class="form-control" 
+                        v-model="record.name" type="text" required="true"
+                        :disabled="(!logedAdmin | (record.name == 'admin'))" />
+            </div>
+        </div>
+        <div class="row formBUttons" v-if="logedAdmin">
+            <div class="col-12">
+                <button type="submit" class="btn btn-success">
+                    <em class="fas fa-check"></em>&nbsp;{{ lng('SAVE') }}
+                </button>&nbsp;
+                <a v-bind:href="previous" class="btn btn-secondary">
+                    <em class="fas fa-reply"></em>&nbsp;{{ lng('CANCEL') }}
+                </a>&nbsp;
+                <button type="button" 
+                   v-on:click="delClick()"
+                   v-if="record.id > 0"
+                   class="btn btn-danger">
+                    <em class="fas fa-eraser"></em>&nbsp;{{ lng('DELETE') }}
+                </button>
+            </div>
+        </div>
+        <div class="row formBUttons" v-if="!logedAdmin">
+            <div class="col-12">
+                <a v-bind:href="previous" class="btn btn-secondary">
+                    <em class="fas fa-reply"></em>&nbsp;{{ lng('BACK') }}
+                </a>
+            </div>
+        </div>
+    </form>    
+</div>
+
+<script>
+    methods = {
+        delClick() {
+            popupConfirm(lng('SUREDELETE'), 
+            function() {
+                location=HREF('group.remove',{id:app.record.id}); 
+            })
+        }    
+    }
+</script>

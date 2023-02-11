@@ -1,0 +1,59 @@
+<div id="subgroups">
+	
+	<div v-if="errorMsg != ''" class="alert alert-danger">
+        <div v-html="lng(errorMsg)"></div>
+    </div>
+    <div v-if="successMsg != ''" class="alert alert-success">
+        <div v-html="lng(successMsg)"></div>
+    </div>
+    
+    <div class="row">
+        <div class="col-12">
+            <h2 v-if="items.length > 0">{{ items[0].pname }}</h2>
+            <h3>{{ lng('SUBPRODUCTS') }}</h3>
+        </div>
+        <div class="col-12">
+            <table id="subproductsTable" class="browserTable">
+                <tr v-for="item in items">
+                    <td v-if="item.id > 0">#{{ item.id }}</td>
+                    <td>
+						<a v-if="(item.id > 0)" v-bind:href="HREF('subproduct.editsubproduct',{id:item.id})">
+                        {{ item.name }}
+                        </a>
+                        <span v-if="(item.id == 0)">{{ item.name }}</span>
+                    </td>
+                    <td v-if="item.id > 0">{{ item.quantity }}</td>
+                    <td v-if="item.id > 0">{{ item.unit }} / {{ item.punit }}</td>
+                </tr>
+            </table>
+            <div class="alert alert-info" v-if="items.length == 0">
+                {{ lng('NODATA') }}
+            </div> 
+        </div>
+        <div class="col-12">
+            include paginator
+        </div>    
+        <div class="col-12">
+            <a v-bind:href="HREF('subproduct.newsubproduct')" class="btn btn-primary">
+                <em class="fas fa-plus-circle"></em>&nbsp;{{ lng('ADD') }}
+            </a>&nbsp;
+            <a v-bind:href="HREF('product.products',{id:items[0].product_id})" class="btn btn-secondary">
+                <em class="fas fa-reply"></em>&nbsp;{{ lng('CANCEL') }}
+            </a>&nbsp;
+        </div>    
+    </div>
+</div>
+
+<script>
+    methods = {
+        makePaginatorClass(p,page) {
+            var result = '';
+            if (p == page) {
+                result="actPaginatorItem";
+            } else {
+                result="paginatorItem"
+            }
+            return result;
+        }
+    }
+</script>

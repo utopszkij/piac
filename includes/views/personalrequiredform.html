@@ -1,0 +1,43 @@
+
+<div v-if="errorMsg != ''" class="alert alert-danger">
+    <div v-html="lng(errorMsg)"></div>
+</div>
+
+<div id="personalrequired">
+    <form id="personalrequiredForm" action="index.php" method="post" 
+        enctype="multipart/form-data">
+        <input type="hidden" value="personalrequired.savepersonalrequired" name="task" />			
+        <input type="hidden" v-model="record.id" name="id" />
+        <input type="hidden" v-model="record.product_id" name="product_id" />
+        <input type="hidden" v-model="flowKey" name="flowKey" />
+        <div class="row text-center">
+            <h2>{{ record.parent_name }}</h2>
+            <h3>{{ lng('PERSONALREQUIRED') }}</h3>
+        </div>
+        <div class="row">
+        <div class="row">
+            <div class="form-outline col-12">
+                <label>{{ lng('QUANTITY') }}:&nbsp;</label>
+                <input name="quantity" class="form-control" type="number" min="0" step="0.00001"
+                        v-model="record.quantity" required="true" />
+                <var id="unit">{{ record.parent_unit }} / nap     
+            </div>
+        </div>
+        
+        <div class="row formBUttons">
+            <div class="col-12">
+                <button type="submit" class="btn btn-success">
+                    <em class="fas fa-check"></em>&nbsp;{{ lng('SAVE') }}
+                </button>&nbsp;
+                <a v-bind:href="HREF('product.products',{})" class="btn btn-secondary">
+                    <em class="fas fa-reply"></em>&nbsp;{{ lng('CANCEL') }}
+                </a>&nbsp;
+            </div>
+        </div>
+    </form>    
+</div>
+
+<script>
+    methods = {
+    }
+</script>

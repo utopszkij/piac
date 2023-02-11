@@ -1,0 +1,18 @@
+
+<div class="row">
+	<div class="col-12">	
+		<a v-bind:href="HREF('home.impressum',{})">Imresszum</a>&nbsp;&nbsp;&nbsp;
+		<a v-bind:href="HREF('home.policy',{})" style="color:white;">{{ lng('POLICY') }}</a>&nbsp;&nbsp;&nbsp;
+		<a v-bind:href="HREF('home.protest',{})" style="color:white;">{{ lng('PROTEST') }}</a>&nbsp;&nbsp;&nbsp;
+		<a v-bind:href="HREF('home.licence',{})" style="color:white;">{{ lng('LICENCE') }}</a>&nbsp;&nbsp;&nbsp;
+		<a href="https://github.com/utopszkij/piac" target="_new" style="color:white;">
+			{{ lng('SOURCE') }}</a>&nbsp;&nbsp;&nbsp;
+	</div>	
+	<div class="col-12">	
+		Ⓒ 2023 {{ lng('COPYRIGHT') }}
+	</div>	
+	<div class="col-12">	
+		<a v-bind:href="HREF('home.sponzor',{})">{{ lng('SPONZOR') }}</a>&nbsp;&nbsp;&nbsp;
+	</div>	
+</div>
+

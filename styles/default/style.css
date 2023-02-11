@@ -1,0 +1,63 @@
+html {font-size:18px}
+body {text-align:center}
+.page {min-height:600px; text-align:left; padding:1%}
+.warning {background-color:red; color:yellow; padding:1%;}
+.warning a {color:yellow;}
+.form-control {display:inline-block; width:auto}
+label {display:inline-block; width: 30%; text-align:right}
+form .row {margin:20px 0px 20px 0px}
+.link {cursor:pointer; color:#0d6efd; font-style:normal; text-decoration:underline}
+
+#header {height:140px; background-color:silver; cursor:pointer;
+	background-image:url('images/header.png'); background-size: 100% 200px; background-repeat:no-repeat }
+#fomenu {background-color:#655191}
+#popup {position:fixed; z-index:99; top:100px; left:100px; display:none;
+  padding:10px; text-align:center; width:auto; height:auto;
+  border-radius:5px;}
+.popupError {background-color:red; color:white}
+.popupSuccess {background-color:rgb(80, 156, 96); color:rgb(24, 16, 16)}
+.popupSimple {background-color:silver; color:black;} 
+
+.paginator {display:inline-block; list-style: none;}
+.paginator li {margin-right:0px;}
+.paginator a {display:inline-block; text-decoration:none; color:black; 
+  margin:0px; width:100%; height:100%} 
+.paginatorItem {display:inline-block; border-style:solid; border-width:1px; 
+  width:32px; height:32px; text-align:center; margin:0px 2px 0px 0px; padding:0px;}
+.actPaginatorItem {display:inline-block; border-style:solid; border-width:1px; 
+    width:32px; height:32px; text-align:center; margin:0px 2px 0px 0px; padding:0px;
+    background-color:silver}
+
+.share a {display:inline-block; width:auto;
+  background-color:blue; color:white; font-size:14px; font-weight:bolder; 
+  border-radius:5px; padding:5px;}  
+.share .icon {display:inline-block; background-color:white; color:blue;
+  padding:1px 8px 1px 8px; border-radius:10px; margin:0px 5px 0px 0px}
+  
+.filterForm {border-style:solid; border-width:1px; padding:0.5%; width:auto}
+.filterForm form, .filterForm div {width:auto}
+.filterForm label {display:inline-block; width:15%; text-align:right; padding:0px 1% 0px 0px}
+.filterForm button {margin-top:0px;}
+.filterForm #filtercreator {width:180px}
+.filterForm #filtercimke {width:180px}
+
+.browserTable tr {padding:2px;}
+.browserTable td {padding:5px; margin:2px; 
+  border-style:solid; border-width:1px; border-color:silver;}
+
+pre {line-height:15px; overflow:hidden; background-color:#f4e6e6; padding:5px;}
+pre code {display:block; max-height:14px; padding:0px; margin:0px; line-height:14px;}
+
+.grafikonTable {width:100%}
+.gry {width:20%; height:50px}
+.grx {width:7%}
+
+#footer {background-color:black; color:white}
+#footer a {text-decoration:none; color:white}
+
+@media screen and (max-width: 992px) {
+}
+
+@media print {
+}
+

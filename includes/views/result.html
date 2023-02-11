@@ -1,0 +1,221 @@
+<div id="result">
+    <h2>Szimuláció eredménye</h2>
+    <h3>{{ init.name }}</h3>
+        <canvas id="myChart" width="400" height="300"></canvas>
+        <h3>Kezdő értékek</h3>
+		<div class="row">
+            <div class="form-outline col-12">
+                <label>órabér kezdő érték:&nbsp;</label>
+                <input name="workhourprice" class="form-control" disabled="disabled"
+                        v-model="init.workhourprice" type="number" min="0" max="10000" step="1" required="true" />
+                minimum érték:
+                <input name="minworkhourprice" class="form-control" disabled="disabled"
+                        v-model="init.minworkhourprice" type="number" min="0" max="10000" step="1" required="true" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-outline col-12">
+                <label>ár emelés ha kereslet > kinálat [>100]:&nbsp;</label>
+                <input name="priceup" class="form-control"  disabled="disabled"
+                        v-model="init.priceup" type="number" min="0" max="150" step="1" required="true" />%
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-outline col-12">
+                <label>ár csökkentés ha kereslet < kinálat [<100]:&nbsp;</label>
+                <input name="pricedown" class="form-control"  disabled="disabled" 
+                        v-model="init.pricedown" type="number" min="0" max="100" step="1" required="true" />%
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-outline col-12">
+                <label>termelés bővítés ha a nyereséges [>100]:&nbsp;</label>
+                <input name="quantityup" class="form-control"  disabled="disabled"
+                        v-model="init.quantityup" type="number" min="0" max="150" step="1" required="true" />%
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-outline col-12">
+                <label>termelés csökkentés ha veszteséges [<100]:&nbsp;</label>
+                <input name="quantitydown" class="form-control"  disabled="disabled"
+                        v-model="init.quantitydown" type="number" min="0" max="100" step="1" required="true" />%
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-outline col-12">
+                <label>létszám:&nbsp;</label>
+                <input name="population" class="form-control"  disabled="disabled"
+                        v-model="init.population" type="number" min="0" max="10000000" step="1" required="true" />fő
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-outline col-12">
+                <label>munkaóra/nap:&nbsp;</label>
+                <input name="hourperday" class="form-control"  disabled="disabled"
+                        v-model="init.hourperday" type="number" min="1" max="8" step="1" required="true" />óra
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-outline col-12">
+                <strong>Termékek:</strong><br />
+                <var v-html="init.products"></var>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-outline col-12">
+                <strong>Algoritmus:</strong><br />
+                <textarea cols="80" rows="20" readonly="readonly" v-model="init.algorithm"></textarea>
+            </div>
+        </div>
+        <div class="row">&nbsp;</div>
+        <h3>Kinálat/kereslet alakulása cikkenként</h3>
+        <div class="row">
+			<div class="col-12">
+				<select id="product" onchange="app.productChange()">
+					<option v-for="product in products" v-bind:value="product.id">{{ product.name}}</option>
+				</select>
+			</div>
+        </div>
+        <div class="row">
+			<div class="col-12" id="productResult">
+				<canvas id="productChart" width="400" height="300"></canvas>
+			</div>
+        </div>
+</div> 
+
+<script>
+	methods = {
+		afterMount() {
+			// felső grafikon
+            var ctx = document.getElementById('myChart').getContext('2d');
+            var data = {
+                labels: [],
+                datasets: [
+                    {
+                        label: 'Összes cikk Kinálat / szükséglet átlag %',
+                        data: [],
+                        borderColor: 'red',
+                        backgroundColor: 'red',
+                    },
+                    {
+                        label: 'Fogy.cikk Kineálat / szükséglet átlag %',
+                        data: [],
+                        borderColor: 'blue',
+                        backgroundColor: 'blue',
+                    },
+                    {
+                        label: 'Össz Fogy.cikk fizetőképes kereslet [HUF] / szükséglet [HUF] %',
+                        data: [],
+                        borderColor: 'orange',
+                        backgroundColor: 'orange',
+                    },
+                    {
+                        label: 'Munkaerő igény / kinálat %',
+                        data: [],
+                        borderColor: 'green',
+                        backgroundColor: 'green',
+                    }
+                ]
+            };
+			const config = {
+                type: 'line',
+                data: data,
+                options: {
+                    responsive: true,
+                    plugins: {
+						legend: {
+							position: 'top',
+						},
+						title: {
+							display: true,
+							text: 'Chart.js Line Chart'
+						}
+                    }
+                },
+            };
+
+
+            if (this.y1) {
+				// értékadás a felső grafikonnak
+				data.labels = []; // napok felsorolása
+				data.datasets[0].data = []; // y1 értékek naponként
+				data.datasets[1].data = []; // y2 értékek naponként
+				data.datasets[2].data = []; // y3 értékek naponként
+				data.datasets[3].data = []; // y4 értékek naponként
+				for (var i = 0; i < this.y1.length; i++) {
+					data.labels.push(''+i);
+					data.datasets[0].data.push(this.y1[i].y);
+					data.datasets[1].data.push(this.y2[i].y);
+					data.datasets[2].data.push(this.y3[i].y);
+					data.datasets[3].data.push(this.y4[i].y);
+				}
+				const myChart = new Chart(ctx, config);
+				// értékadás az alsó grafikonnak
+				if (this.productResult.length > 0) {
+					var productId = this.productResult[0].product_id;
+					this.showProductResult(productId);
+				}
+			}
+			
+
+		},
+		showProductResult(productId) {
+			// alsó grafikon
+			document.getElementById('productResult').innerHTML = '';
+			document.getElementById('productResult').innerHTML = '<canvas id="productChart" width="400" height="300"></canvas>';
+            var ctx2 = document.getElementById('productChart').getContext('2d');
+            var data2 = {
+                labels: [],
+                datasets: [
+                    {
+                        label: 'szükséglet',
+                        data: [],
+                        borderColor: 'red',
+                        backgroundColor: 'red',
+                    },
+                    {
+                        label: 'kinálat',
+                        data: [],
+                        borderColor: 'blue',
+                        backgroundColor: 'blue',
+                    }
+                ]
+            };
+			const config2 = {
+                type: 'line',
+                data: data2,
+                options: {
+                    responsive: true,
+                    plugins: {
+						legend: {
+							position: 'top',
+						},
+						title: {
+							display: true,
+							text: 'Chart.js Line Chart'
+						}
+					}
+                },
+            };
+			data2.labels = []; 
+			data2.datasets[0].data = []; 
+			data2.datasets[1].data = []; 
+			for (var i = 0; i < this.productResult.length; i++) {
+						if (this.productResult[i].product_id == productId) {
+						  data2.labels.push(this.productResult[i].day);
+						  data2.datasets[0].data.push(this.productResult[i].szukseglet);
+						  data2.datasets[1].data.push(this.productResult[i].kinalat);
+						}
+			}
+			const myChart2 = new Chart(ctx2, config2);
+		},
+		productChange() {
+			console.log(document.getElementById('product').selectedIndex);
+			var i = document.getElementById('product').selectedIndex;
+			var productId = document.getElementById('product').options[i].value;
+			console.log(productId);
+			this.showProductResult(productId);
+		}
+	};
+
+</script>

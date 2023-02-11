@@ -1,0 +1,10 @@
+config.php
+config_test.php
+tests/config.php
+tests/config_test.php
+.phpunit.result.cache
+.project
+*.bfproject
+.buildpath
+node-modules
+node-modules/*
